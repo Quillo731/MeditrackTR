@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>İlaç Hatırlatıcı</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json">
+  </head>
+  <body>
+    <nav class="app-menu" aria-label="Uygulama menüsü">
+      <button id="menuButton" class="menu-button" type="button" aria-expanded="false" aria-controls="menuPanel" title="Menü">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div id="menuPanel" class="menu-panel" hidden>
+        <button id="showDeletePanelButton" class="menu-item" type="button">İlaç sil</button>
+        <button id="showHistoryButton" class="menu-item" type="button">İlaç geçmişi</button>
+      </div>
+    </nav>
+
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">İlaç Hatırlatıcı</p>
+          <h1>Merhaba, <span id="personNameDisplay">Misafir</span></h1>
+          <p class="date-line">
+            <span id="todayText"></span>
+            <span id="currentTimeText" class="time-line"></span>
+          </p>
+        </div>
+        <form id="profileForm" class="profile-form" autocomplete="off">
+          <label for="personName">Kişinin adı</label>
+          <div class="inline-control">
+            <input id="personName" name="personName" type="text" placeholder="İsim yaz" />
+            <button type="submit">Kaydet</button>
+          </div>
+        </form>
+      </header>
+
+      <section class="summary-grid" aria-label="Günlük özet">
+        <div class="summary-item">
+          <span>Bugün alınacak</span>
+          <strong id="plannedCount">0</strong>
+        </div>
+        <div class="summary-item">
+          <span>Alındı</span>
+          <strong id="takenCount">0</strong>
+        </div>
+        <div class="summary-item">
+          <span>Bekliyor</span>
+          <strong id="openCount">0</strong>
+        </div>
+      </section>
+
+      <section class="content-grid">
+        <section class="panel" aria-labelledby="medicationHeading">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Bugün</p>
+              <h2 id="medicationHeading">İlaçlar</h2>
+            </div>
+          </div>
+          <div id="medicationList" class="medication-list"></div>
+        </section>
+
+        <aside class="panel" aria-labelledby="addMedicationHeading">
+          <p class="eyebrow">Yeni ilaç</p>
+          <h2 id="addMedicationHeading">Ekle</h2>
+          <form id="medicationForm" class="stack-form" autocomplete="off">
+            <label for="medName">İlaç adı</label>
+            <input id="medName" name="medName" type="text" required placeholder="Örn. tansiyon ilacı" />
+
+            <label for="medTime">Alma saati</label>
+            <input id="medTime" name="medTime" type="time" required />
+
+            <label for="medNotes">Ek bilgiler</label>
+            <textarea id="medNotes" name="medNotes" rows="4" placeholder="Örn. yemekten sonra, doz, not"></textarea>
+
+            <button type="submit">İlaç ekle</button>
+          </form>
+        </aside>
+      </section>
+
+      <section id="deletePanel" class="panel utility-panel" aria-labelledby="deleteHeading" hidden>
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Seçim</p>
+            <h2 id="deleteHeading">İlaç sil</h2>
+          </div>
+          <button id="closeDeletePanelButton" class="ghost-button" type="button">Kapat</button>
+        </div>
+        <form id="deleteMedicationForm" class="delete-list"></form>
+      </section>
+
+      <section id="historyPanel" class="panel utility-panel" aria-labelledby="historyHeading" hidden>
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Kayıt</p>
+            <h2 id="historyHeading">İlaç geçmişi</h2>
+          </div>
+          <div class="panel-actions">
+            <button id="exportButton" class="ghost-button" type="button">Geçmişi indir</button>
+            <button id="closeHistoryButton" class="ghost-button" type="button">Kapat</button>
+          </div>
+        </div>
+        <div class="history-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Tarih</th>
+                <th>İlaç</th>
+                <th>Planlanan saat</th>
+                <th>Onaylanan saat</th>
+              </tr>
+            </thead>
+            <tbody id="historyBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
